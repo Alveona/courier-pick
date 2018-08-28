@@ -1,6 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth.models import User, Group
+from django.db.models.signals import post_save
+
+# Signal to assign all couriers to group by default (i.e. grant them permissions)
+def default_group(sender, instance, created, **kwargs):
+    if created:
+        instance.groups.add(Group.objects.get(name='couriers'))
+
+post_save.connect(default_group, sender=User)
 
 class Courier(models.Model):
     name = models.CharField(max_length=32, verbose_name="Имя курьера")
