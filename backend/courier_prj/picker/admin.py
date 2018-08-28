@@ -24,6 +24,12 @@ class UserAdmin(AdminSite):
         # As default django admin form checks for is_staff
         return request.user.is_active
 
+class UserAdminModel(admin.ModelAdmin):
+    def get_queryset(self, request): # function to display only current courier's orders in manage panel
+        qs = super(UserAdminModel, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(courier__user=request.user) # courier__user is actually SQL JOIN of courier and user models
 
 
 
@@ -31,7 +37,7 @@ admin.site.register(Courier)
 admin.site.register(Order)
 
 user_admin_site = UserAdmin(name="usersadmin")
-user_admin_site.register(Courier)
-user_admin_site.register(Order)
+user_admin_site.register(Courier, UserAdminModel)
+user_admin_site.register(Order, UserAdminModel)
 
 
