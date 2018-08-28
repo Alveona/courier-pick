@@ -1,3 +1,4 @@
 backend/env
 .idea
 backend/venv
+backend/courier_prj/picker/migrations

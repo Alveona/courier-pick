@@ -1,3 +1,9 @@
 from django.contrib import admin
+from django.contrib.admin.sites import AdminSite
+from .models import Courier, Order
 
-# Register your models here.
+
+admin.site.register(Courier)
+admin.site.register(Order)
+
+
