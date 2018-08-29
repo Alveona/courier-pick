@@ -24,6 +24,7 @@ class Courier(models.Model):
 class Order(models.Model):
     addressFrom = models.CharField(max_length=64, verbose_name="Адрес клиента")
     addressTo = models.CharField(max_length=64, verbose_name="Адрес доставки")
+    weight = models.IntegerField(verbose_name="Вес товара", default=0)
     price = models.IntegerField(null=True, verbose_name="Цена заказа")
     date = models.DateTimeField(default=timezone.now, verbose_name="Время заказа")
     courier = models.ForeignKey(Courier, on_delete=models.CASCADE, null=True, verbose_name="Курьер")
