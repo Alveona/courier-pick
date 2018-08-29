@@ -9,3 +9,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated, )
+    http_method_names = ['get', 'post']
+
+    def get_queryset(self):  # Return only current courier's orders or all orders if superuser
+        user = self.request.user
+        if user.is_superuser:
+            queryset = Order.objects.all()
+            return queryset
+        return Order.objects.all().filter(courier__user=user)
