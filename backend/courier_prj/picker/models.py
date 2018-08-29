@@ -28,10 +28,13 @@ class Order(models.Model):
     date = models.DateTimeField(default=timezone.now, verbose_name="Время заказа")
     courier = models.ForeignKey(Courier, on_delete=models.CASCADE, null=True, verbose_name="Курьер")
 
+    def getOrderDay(self):
+        return self.date.date().strftime("%d/%m/%Y") # Function uses in serializer to show date in GET request
+
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = "Заказы"
 
     def __str__(self):
-        return 'Заказ'
+        return 'Заказ от %s' % (self.date.date())
 
