@@ -11,7 +11,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
     http_method_names = ['get', 'post']
 
-    def get_queryset(self):  # Return only current courier's orders or all orders if superuser
+    def get_queryset(self):  # Return only current courier's orders or all orders if superuser in GET /api/orders/
         user = self.request.user
         if user.is_superuser:
             queryset = Order.objects.all()
