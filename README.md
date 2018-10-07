@@ -1,2 +1,2 @@
-## Yo, nigga!
-Предлагаю вести ридми файл в качестве TODO. По крайней мере, до релиза)00
+## Courier picker 
+Picks courier based on order location
